@@ -1,0 +1,19 @@
+jobs:
+  include:
+    # Pipenv Python 3.7.5 + QT pyside6 - Build .app
+    - os: osx
+      language: generic
+      env:
+        - PIPENV_VENV_IN_PROJECT=1
+        - PIPENV_IGNORE_VIRTUALENVS=1
+      install:
+        - python3 --version
+        - pip3 install pipenv
+        - pipenv run pip install pyside6 lxml
+        - pipenv run make pyside6
+        - rm -rf build dist
+        - pipenv run python setup.py py2app
+        - open dist/labelImg.app
+
+script:
+  - exit 0
